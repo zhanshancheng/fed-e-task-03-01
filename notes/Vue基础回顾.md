@@ -6,12 +6,13 @@
   - Vue.js 源码分析
 ## 二、Vue基础结构
 
+  ### 模式一 el选项
   ```javascript
     <div id="app">
       <p>公司名称：{{ company.name }}</p>
       <p>公司名称：{{ company.address }}</p>
     </div>
-    
+
     <script>
       new Vue({
         el: '#app',
@@ -24,3 +25,34 @@
       })
     </script>
   ```
+  ### 模式二 render选项
+  ```javascript
+    <div id="app">
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          company: {
+            name: '拉勾'
+            address: '中关村创业大街'
+          }
+        },
+        // render 函数默认接收一个 h 函数
+        render(h) {
+          // h 函数的作用是创建一个虚拟DOM
+          return h('div', [
+            h('p', '公司名称' + this.company.name),
+            h('p', '公司地址' + this.company.address)
+          ])
+        }
+        // $mount的作用是把虚拟DOM转化为真实DOM 渲染到游览器
+      }).$mount('#app')
+      
+    </script>
+  ```
+
+
+## 三、Vue 的生命周期
+  ![Image text](https://cn.vuejs.org/images/lifecycle.png)
