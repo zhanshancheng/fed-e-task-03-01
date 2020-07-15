@@ -56,3 +56,17 @@
 
 ## 三、Vue 的生命周期
   ![Image text](https://cn.vuejs.org/images/lifecycle.png)
+
+## 四、Vue 语法和概念
+  - 插值表达式
+  - 指令
+  - 计算属性和侦听器
+  - Class 和 Style 绑定
+  - 条件渲染/列表渲染
+  - 表单输入绑定
+  - 组件
+  - 插槽
+  - 插件
+  - 混入 mixin
+  - 深入响应式原理
+  - 不同构建版本的 Vue
