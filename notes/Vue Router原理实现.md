@@ -241,9 +241,9 @@
   ### Hash 模式和 History 模式的区别
     #### 表现形式的区别
       - Hash 模式
-        - https://music.163.com/#/playlist?id=310291863
+        https://music.163.com/#/playlist?id=310291863
       - History 模式
-        - https://music.163.com/playlist/310291863
+        https://music.163.com/playlist/310291863
     #### 原理的区别
       - Hash 模式是基于锚点，以及 onhashchange 事件
       - History 模式是基于 HTML5 中的 History API
