@@ -184,53 +184,55 @@
     }
     </script>
   ```
+
   ```html
   <!-- Index.vue -->
-  <template>
-      <div class="home">
-        <div id="nav">
-          <router-link to="/"> Index< /router-link>
-        </div>
-        <button @click="replace"> replace </button>
 
-        <button @click="goDetail"> Detail </button>
+  <template>
+    <div class="home">
+      <div id="nav">
+        <router-link to="/"> Index< /router-link>
       </div>
-    </template>
-    <script>
-    export default {
-      name: 'Index',
-      methods: {
-        replace() {
-          this.$router.replace('/login')
-        }
-        goDetail() {
-          this.$router.push({ name: "Detail", params: { id: 1 } })
-        }
+      <button @click="replace"> replace </button>
+
+      <button @click="goDetail"> Detail </button>
+    </div>
+  </template>
+  <script>
+  export default {
+    name: 'Index',
+    methods: {
+      replace() {
+        this.$router.replace('/login')
+      }
+      goDetail() {
+        this.$router.push({ name: "Detail", params: { id: 1 } })
       }
     }
-    </script>
-
+  }
+  </script>
   ```
+
   ```html
   <!-- Detail.vue -->
 
-    <template>
-      <div>
-        路由参数：{{ id }}
-        <button @click="go"> go(-2) </button>
-      </div>
-    </template>
-    <script>
-    export default {
-      name: 'Detail',
-      props: ['id']
-      methods: {
-        go() {
-          this.$router.go(-2)
-        }
+  <template>
+    <div>
+      路由参数：{{ id }}
+      <button @click="go"> go(-2) </button>
+    </div>
+  </template>
+  <script>
+  export default {
+    name: 'Detail',
+    props: ['id']
+    methods: {
+      go() {
+        this.$router.go(-2)
       }
     }
-    </script>
+  }
+  </script>
   ```
 
 ## Hash 模式和 History 模式
@@ -245,8 +247,8 @@
     #### 原理的区别
       - Hash 模式是基于锚点，以及 onhashchange 事件
       - History 模式是基于 HTML5 中的 History API
-        -history.pushState()  IE 10 以后才支持
-        -history.replaceState()
+      - `history.pushState()`  IE 10 以后才支持
+      - `history.replaceState()`
   ### History 模式
     #### History 模式的使用
       - History 需要服务器的支持
@@ -288,7 +290,7 @@
       ```
       ```
         # nginx.conf
-        
+
         location / {
           root  html;
           index index.html  index.htm;
