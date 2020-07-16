@@ -239,21 +239,25 @@
   - 不管哪种模式都是客户端路由的实现方式，不会像服务器发送请求
   - 使用 js 监听路径的变化，然后渲染不同的内容
   ### Hash 模式和 History 模式的区别
-    #### 表现形式的区别
-      - Hash 模式
-        https://music.163.com/#/playlist?id=310291863
-      - History 模式
-        https://music.163.com/playlist/310291863
-    #### 原理的区别
-      - Hash 模式是基于锚点，以及 onhashchange 事件
-      - History 模式是基于 HTML5 中的 History API
-      - `history.pushState()`  IE 10 以后才支持
-      - `history.replaceState()`
+
+  #### 表现形式的区别
+    - Hash 模式
+      https://music.163.com/#/playlist?id=310291863
+    - History 模式
+      https://music.163.com/playlist/310291863
+  #### 原理的区别
+    - Hash 模式是基于锚点，以及 onhashchange 事件
+    - History 模式是基于 HTML5 中的 History API
+    - `history.pushState()`  IE 10 以后才支持
+    - `history.replaceState()`
+
   ### History 模式
-    #### History 模式的使用
-      - History 需要服务器的支持
-      - 单页应用中，服务端不存在 http://www.testurl.com/login 这样的地址会返回找不到该页面
-      - 在服务端应该出了静态资源外都返回单页应用的 index.html 
+
+  #### History 模式的使用
+    - History 需要服务器的支持
+    - 单页应用中，服务端不存在 http://www.testurl.com/login 这样的地址会返回找不到该页面
+    - 在服务端应该出了静态资源外都返回单页应用的 index.html 
+
   ### History 模式 - Node.js
     ```javascript
       // node app.js
