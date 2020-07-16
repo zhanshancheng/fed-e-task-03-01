@@ -243,9 +243,9 @@ export default {
 ### Hash 模式和 History 模式的区别
 
 #### 表现形式的区别
-  - Hash 模式
+  - Hash 模式   
     https://music.163.com/#/playlist?id=310291863
-  - History 模式
+  - History 模式    
     https://music.163.com/playlist/310291863
 #### 原理的区别
   - Hash 模式是基于锚点，以及 onhashchange 事件
@@ -304,5 +304,68 @@ export default {
       try_files $uri  $uri/ /index.html
     }
   ```
-## 模拟实现自己的 Vue Router
 
+## Vue-Router 原理实现
+
+### 基本原理
+  > Hash 模式
+  - URL 中 # 后面的内容作为路径地址
+  - 监听 hashchange 事件
+  - 根据当前路由地址找到对应组件重新渲染
+  > History 模式
+  - 通过 history.pushState() 方法改变地址栏
+  - 监听 popstate 事件
+  - 根据当前路由地址找到对应组件重新渲染
+
+### 分析
+#### 回顾核心代码
+```js
+// router/index.js
+
+// 注册插件
+/* 
+  use 方法可以接收两种参数
+  function: use 直接调用该函数
+  object: usr 调用该对象的install方法
+*/
+Vue.use(VueRouter)
+// 创建路由对象
+const router = new VueRouter({
+  routers: [
+    { name: 'home', path: '/', component: homeComponent }
+  ]
+})
+
+// main.js
+
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app')
+
+```
+#### VueRouter 类
+##### 属性
+- options   
+  > 记录构造函数中的传入的对象
+- data    
+  > 响应式 object 路由地址发生改变相应组件也得发生改变
+  > 记录当前路由地址
+- routeMap   
+  >  object
+  > 记录路由和组件的对应关系
+##### 方法
+- `Constructor(Options): VueRouter`   
+  > 初始化属性
+
+- `_install(Vue): void`   
+  > 静态方法
+  > 用来实现 vue 的插件机制
+- `init(): void`    
+  > 用来调用下面三个方法
+- `initEvent(): void`  
+  > 监听游览器历史的变化
+- `createRouteMap(): void`   
+  > 初始化 routeMap 属性
+- `initComponents(Vue): void`   
+  > 创建 routeMap 和 routeVue 两个组件
