@@ -286,7 +286,7 @@ export default {
   - 从官网下载 nginx 的压缩包
   - 把压缩包解压到 c 盘 根目录， c:\nginx-1.18.0 文件夹
   - 打开命令行，切换到目录 c:nginx-1.18.0
-  ```
+  ```shell
     # 启动
     start nginx
     # 重启
@@ -294,7 +294,7 @@ export default {
     # 停止
     nginx -s stop
   ```
-  ```
+  ```shell
     # nginx.conf
 
     location / {
@@ -305,3 +305,4 @@ export default {
     }
   ```
 ## 模拟实现自己的 Vue Router
+
