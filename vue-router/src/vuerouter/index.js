@@ -15,6 +15,7 @@ export default class VueRouter {
       beforeCreate () {
         if (this.$options.router) {
           _Vue.prototype.$router = this.$options.router
+          this.$options.router.init()
         }
       }
     })
@@ -32,10 +33,55 @@ export default class VueRouter {
     })
   }
 
+  init () {
+    this.createRouteMap()
+    this.initComponents(_Vue)
+    this.initEvent()
+  }
+
   createRouteMap () {
     // 遍历所有路由规则，把路由规则解析成键值对的形式 存储到 routeMap 中
     this.options.routes.forEach(route => {
       this.routeMap[route.path] = route.component
+    })
+  }
+
+  initComponents (Vue) {
+    Vue.component('router-link', {
+      props: {
+        to: String
+      },
+      // template: '<a :href="to"><slot></slot></a>'
+      render (h) {
+        return h('a', {
+          attrs: {
+            href: this.to
+          },
+          on: {
+            click: this.clickHandler
+          }
+        }, [this.$slots.default])
+      },
+      methods: {
+        clickHandler (e) {
+          history.pushState({}, '', this.to)
+          this.$router.data.current = this.to
+          e.preventDefault()
+        }
+      }
+    })
+    const self = this
+    Vue.component('router-view', {
+      render (h) {
+        const component = self.routeMap[self.data.current]
+        return h(component)
+      }
+    })
+  }
+
+  initEvent () {
+    window.addEventListener('popstate', () => {
+      this.data.current = window.location.pathname
     })
   }
 }

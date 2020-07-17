@@ -369,3 +369,7 @@ new Vue({
   > 初始化 routeMap 属性
 - `initComponents(Vue): void`   
   > 创建 routeMap 和 routeVue 两个组件
+
+#### Vue 的构建版本
+- 运行时版：不支持`template`模版，需要打包的时候提前编译
+- 完整版：包含运行时和编译器，体积比运行时版大 10K 左右，程序运行的时候把模版转换成`render`函数
