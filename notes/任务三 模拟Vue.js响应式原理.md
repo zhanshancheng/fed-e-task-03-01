@@ -218,7 +218,7 @@ let vm = new Proxy(data, {
 #### 总结
 - **观察者模式**是由具体目标调整，比如当事件触发，Dep 就会去调用观察者的方法，所有观察者模式的订阅者与发布者之间存在依赖
 - **发布/订阅模式**由统一调度中心调用，因此发布者和订阅者不需要知道对方的存在。
-![avatar](./images/模式.png)
+![avatar](https://github.com/zhanshancheng/fed-e-task-03-01/blob/master/notes/images/模式.png)
 
 ## 模拟Vue响应式
 
@@ -282,7 +282,7 @@ let vm = new Proxy(data, {
   - 代码(./minVue/js/compiler.js)
 
 #### Dep(Dependency)
-![avatar](./images/Dep.png)
+![avatar](https://github.com/zhanshancheng/fed-e-task-03-01/blob/master/notes/images/Dep.png)
   - 功能
     - 收集依赖，添加观察者（watcher）
     - 通知所有观察者
@@ -296,7 +296,7 @@ let vm = new Proxy(data, {
   ```
   - 代码(./minVue/js/dep.js)
 #### Watcher(观察者)
-![avatar](./images/Watcher.png)
+![avatar](https://github.com/zhanshancheng/fed-e-task-03-01/blob/master/notes/images/Watcher.png)
   - 
   - 功能
     - 当数据发生变化触发依赖，dep 通知所有 Watcher 实例更新视图
@@ -319,4 +319,4 @@ let vm = new Proxy(data, {
     - 给 Vue 实例新增一个成员是否时响应式的？`不是`
   - 通过下图回顾整体流程
 
-![avatar](./images/Vue.png)
+![avatar](https://github.com/zhanshancheng/fed-e-task-03-01/blob/master/notes/images/Vue.png)
