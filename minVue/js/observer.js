@@ -1,3 +1,5 @@
+// 数据劫持
+
 class Observer {
   constructor (data) {
     this.walk(data)
@@ -15,11 +17,15 @@ class Observer {
   defineReactive (obj, key, val) {
     // 如果val是对象 把val内部的属性转换成响应式数据
     let self = this
+    // 负责收集依赖，并发送通知
+    let dep = new Dep()
     self.walk(val)
     Object.defineProperty(obj, key, {
       enumerable: true,
       configurable: true,
       get () {
+        // 收集依赖
+        Dep.target && dep.addSub(Dep.target)
         return val
       },
       set (newVal) {
@@ -29,6 +35,7 @@ class Observer {
         val = newVal
         self.walk(newVal)
         // 发送通知
+        dep.notify()
       }
     })
   }

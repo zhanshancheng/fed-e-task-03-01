@@ -1,3 +1,4 @@
+// 解析指令
 class Compiler {
   constructor (vm) {
     this.el = vm.$el
@@ -38,15 +39,25 @@ class Compiler {
   }
   update (node, key, attrName) {
     let updateFn = this[attrName + 'Updater']
-    updateFn && updateFn(node, this.vm[key])
+    updateFn && updateFn.call(this, node, this.vm[key], key)
   }
   // 处理 v-text 指令
-  textUpdater (node, value) {
+  textUpdater (node, value, key) {
     node.textContent = value
+    new Watcher(this.vm, key, (newVal) => {
+      node.textContent = newVal
+    })
   }
   // 处理 v-model指令
-  modelUpdater (node, value) {
+  modelUpdater (node, value, key) {
     node.value = value
+    new Watcher(this.vm, key, (newVal) => {
+      node.value = newVal
+    })
+    // 双向绑定
+    node.addEventListener('input', () => {
+      this.vm[key] = node.value
+    })
   }
   // 处理文本节点，处理差值表达式
   compileText(node) {
@@ -56,6 +67,10 @@ class Compiler {
     if (reg.test(value)) {
       let key = RegExp.$1.trim()
       node.textContent = value.replace(reg, this.vm[key])
+      // 创建watcher对象，在数据改变时更新视图
+      new Watcher(this.vm, key, (newVal) => {
+        node.textContent = newVal
+      })
     }
   }
   // 判断元素属性是否是指令
