@@ -33,8 +33,22 @@ class Compiler {
         // v-text --> text
         attrName = attrName.substr(2)
         let key = attr.value
+        if (this.isEvent(attrName)) {
+          let name = attrName.replace('on:', '')
+          this.addHandler(node, name, key)
+          return 
+        }
+        
         this.update(node, key, attrName)
       }
+    })
+  }
+  addHandler (node, eventName, key) {
+    let keyArr = key.split('(')
+    let eventFn = keyArr[0]
+    let eventArg = keyArr[1].match(/(?<=').*?(?=')/g)[0]
+    node.addEventListener(eventName, () => {
+      this.vm.$options.methods[eventFn](eventArg)
     })
   }
   update (node, key, attrName) {
@@ -58,6 +72,17 @@ class Compiler {
     node.addEventListener('input', () => {
       this.vm[key] = node.value
     })
+  }
+  // 处理 v-html 指令
+  htmlUpdater (node, value, key) {
+    node.innerHTML = value
+    new Watcher(this.vm, key, (newVal) => {
+      node.innerHTML = newVal
+    })
+  }
+  // 处理 v-on:click 指令
+  clickUpdater (node, value, key) {
+    console.log(node, value, key)
   }
   // 处理文本节点，处理差值表达式
   compileText(node) {
@@ -84,5 +109,9 @@ class Compiler {
   // 判断节点是否是元素节点
   isElementNode(node) {
     return node.nodeType === 1
+  }
+  // 判断元素属性是否是事件
+  isEvent(attrName) {
+    return attrName.includes(':')
   }
 }
